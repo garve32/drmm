@@ -1,0 +1,35 @@
+
+spring:
+  profiles:
+    active: ${server.profile:local}
+  batch:
+    job:
+      name: ${job.name:NONE}
+logging:
+  pattern:
+    console: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
+  level:
+    root: info
+--- # local
+spring:
+  config:
+    activate:
+      on-profile: local
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+  datasource:
+    hikari:
+      batch:
+        jdbc-url: jdbc:h2:tcp://localhost/~/drmm
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: sa
+      work:
+        jdbc-url: jdbc:h2:tcp://localhost/~/work
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: sa
