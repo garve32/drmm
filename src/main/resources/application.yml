@@ -26,10 +26,13 @@ spring:
       batch:
         jdbc-url: jdbc:h2:tcp://localhost/~/drmm
         driver-class-name: org.h2.Driver
+        pool-name: cp-drmm
         username: sa
-        password: sa
+        password:
       work:
         jdbc-url: jdbc:h2:tcp://localhost/~/work
         driver-class-name: org.h2.Driver
+        pool-name: cp-work
         username: sa
-        password: sa
+        password:
+

@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.ExitStatus;
-import org.springframework.batch.core.JobParameter;
-import org.springframework.batch.core.StepExecution;
-import org.springframework.batch.core.StepExecutionListener;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.InitializingBean;
 
 @Slf4j
-public class AbstractStep implements StepExecutionListener {
+public class AbstractStep implements StepExecutionListener, Tasklet, InitializingBean {
 
     private StepExecution stepExecution;
 
@@ -37,5 +38,22 @@ public class AbstractStep implements StepExecutionListener {
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         return null;
+    }
+
+    @Override
+    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+        String name = this.getClass().getSimpleName();
+        log.info("#### {} start ####", name);
+
+        Map jobParametersMap = getJobParametersMap();
+        log.info("jobParametersMap = {}", jobParametersMap);
+        log.info("#### {} end ####", name);
+
+        return RepeatStatus.FINISHED;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+
     }
 }

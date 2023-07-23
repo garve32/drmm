@@ -1,29 +1,30 @@
 package com.hanwha.drmm.batch;
 
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.BatchStatus;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersIncrementer;
-import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.NoSuchJobException;
+import org.springframework.batch.core.launch.support.TaskExecutorJobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
 @Slf4j
-//@Component
+@Component
 @RequiredArgsConstructor
-public class SimpleJobRunner implements JobRunner{
+public class CustomJobLauncher extends TaskExecutorJobLauncher implements JobRunner {
+    @Override
+    public JobExecution run(Job job, JobParameters jobParameters) throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
+        return super.run(job, jobParameters);
+    }
 
     private final CustomJobParametersConverter jobParametersConverter;
     private final SimpleJobRegistry jobRegistry;
@@ -91,6 +92,6 @@ public class SimpleJobRunner implements JobRunner{
 
     @Override
     public void afterPropertiesSet() throws Exception {
-
+        super.setJobRepository(jobRepository);
     }
 }

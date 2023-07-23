@@ -4,6 +4,8 @@ import com.hanwha.drmm.batch.SimpleJobRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,5 +20,9 @@ public class BatchConfig {
         jobRegistryBeanPostProcessor.setJobRegistry(jobRegistry);
         return jobRegistryBeanPostProcessor;
     }
+
+
+
+
 
 }
