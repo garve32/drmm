@@ -1,17 +1,12 @@
 package com.hanwha.drmm.job;
 
 import com.hanwha.drmm.batch.SimpleJobParametersIncrementer;
-import com.hanwha.drmm.config.CustomJob;
 import com.hanwha.drmm.tasklet.Test001Tasklet;
 import com.hanwha.drmm.tasklet.Test002Tasklet;
-import com.hanwha.drmm.tasklet.Test003Tasklet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.explore.JobExplorer;
-import org.springframework.batch.core.job.AbstractJob;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -31,8 +26,8 @@ public class Test001Job {
     private final Test002Tasklet test002Tasklet;
 
     @Bean
-    public Job test001JobMethod() {
-        return new JobBuilder("test001JobMethod", jobRepository)
+    public Job test001() {
+        return new JobBuilder("test001", jobRepository)
             .start(test001StepFirst())
             .next(test001StepSecond())
             .incrementer(new SimpleJobParametersIncrementer())

@@ -27,8 +27,8 @@ public class Test002Job {
     private final Test003Tasklet test003Tasklet;
 
     @Bean
-    public Job test002JobMethod() {
-        return new JobBuilder("test002JobMethod", jobRepository)
+    public Job test002() {
+        return new JobBuilder("test002", jobRepository)
             .start(test002Step001())
             .incrementer(new SimpleJobParametersIncrementer())
             .build();

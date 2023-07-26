@@ -1,6 +1,7 @@
 package com.hanwha.drmm.tasklet;
 
 import com.hanwha.drmm.config.AbstractStep;
+import com.hanwha.drmm.sample.SampleService;
 import java.util.Map;
 
 import com.hanwha.drmm.service.Test001Service;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 public class Test001Tasklet extends AbstractStep {
 
     private final Test001Service test001Service;
+    private final SampleService sampleService;
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
@@ -29,6 +31,7 @@ public class Test001Tasklet extends AbstractStep {
 
         Map jobParametersMap = getJobParametersMap();
         test001Service.testMethod();
+        sampleService.getList();
         log.info("jobParametersMap = {}", jobParametersMap);
         log.info("#### {} end ####", name);
 
