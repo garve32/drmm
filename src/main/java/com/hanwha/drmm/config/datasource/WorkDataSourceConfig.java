@@ -1,8 +1,10 @@
-package com.hanwha.drmm.config;
+package com.hanwha.drmm.config.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -45,6 +47,16 @@ public class WorkDataSourceConfig {
         Resource[] resources = patternResolver.getResources("/mapper/work/**/**.xml");
         factoryBean.setMapperLocations(resources);
         return factoryBean.getObject();
+    }
+
+    @Bean(name = "workSt")
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("workSf") SqlSessionFactory sqlSessionFactory) {
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }
+
+    @Bean(name = "workBatchSt")
+    public SqlSessionTemplate batchSqlSessionTemplate(@Qualifier("workSf") SqlSessionFactory sqlSessionFactory) {
+        return new SqlSessionTemplate(sqlSessionFactory, ExecutorType.BATCH);
     }
 
     @Bean

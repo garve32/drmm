@@ -18,9 +18,6 @@ public class AbstractStep implements StepExecutionListener, Tasklet, Initializin
 
     public Map getJobParametersMap() {
         Map<String, JobParameter<?>> jobParameterMap = stepExecution.getJobParameters().getParameters();
-        for (Entry<String, JobParameter<?>> stringJobParameterEntry : jobParameterMap.entrySet()) {
-            log.info("key = {}, value = {}", stringJobParameterEntry.getKey(), stringJobParameterEntry.getValue());
-        }
         Map<String, Object> resultMap = new HashMap<>();
         for (Entry<String, JobParameter<?>> entry : jobParameterMap.entrySet()) {
             resultMap.put(entry.getKey(), entry.getValue().getValue());

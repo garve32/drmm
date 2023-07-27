@@ -1,14 +1,11 @@
 package com.hanwha.drmm.job;
 
-import com.hanwha.drmm.batch.SimpleJobParametersIncrementer;
-import com.hanwha.drmm.tasklet.Test001Tasklet;
-import com.hanwha.drmm.tasklet.Test002Tasklet;
+import com.hanwha.drmm.config.batch.SimpleJobParametersIncrementer;
 import com.hanwha.drmm.tasklet.Test003Tasklet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;

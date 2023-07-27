@@ -1,4 +1,4 @@
-package com.hanwha.drmm.job;
+package com.hanwha.drmm.sample;
 
 import com.hanwha.drmm.config.batch.SimpleJobParametersIncrementer;
 import com.hanwha.drmm.tasklet.Test001Tasklet;
@@ -17,33 +17,35 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class Test001Job {
+public class MemberInsertJob {
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager batchTm;
-//    private final PlatformTransactionManager workTm;
+    private final MemberInsertTasklet memberInsertTasklet;
+    private final MemberInsertTasklet_2 memberInsertTasklet_2;
     private final Test001Tasklet test001Tasklet;
     private final Test002Tasklet test002Tasklet;
 
     @Bean
-    public Job test001() {
-        return new JobBuilder("test001", jobRepository)
-            .start(test001StepFirst())
-            .next(test001StepSecond())
+    public Job memberUpdate() {
+        return new JobBuilder("memberUpdate", jobRepository)
+            .start(memberInsertStep())
+            .next(memberInsertStep2())
             .incrementer(new SimpleJobParametersIncrementer())
             .build();
     }
 
-    public Step test001StepFirst() {
-        return new StepBuilder("test001StepFirst", jobRepository)
-            .tasklet(test001Tasklet, batchTm)
+    public Step memberInsertStep() {
+        return new StepBuilder("memberInsertStep", jobRepository)
+            .tasklet(memberInsertTasklet, batchTm)
             .build();
     }
 
-    public Step test001StepSecond() {
-        return new StepBuilder("test001StepSecond", jobRepository)
-            .tasklet(test002Tasklet, batchTm)
+    public Step memberInsertStep2() {
+        return new StepBuilder("memberInsertStep2", jobRepository)
+            .tasklet(memberInsertTasklet_2, batchTm)
             .build();
     }
+
 
 }

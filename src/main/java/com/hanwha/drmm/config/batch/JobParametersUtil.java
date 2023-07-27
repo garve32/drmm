@@ -1,6 +1,6 @@
-package com.hanwha.drmm.config;
+package com.hanwha.drmm.config.batch;
 
-import com.hanwha.drmm.batch.SimpleJobParametersIncrementer;
+import com.hanwha.drmm.config.batch.SimpleJobParametersIncrementer;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

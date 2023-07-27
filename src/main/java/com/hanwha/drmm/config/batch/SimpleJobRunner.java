@@ -1,6 +1,5 @@
-package com.hanwha.drmm.batch;
+package com.hanwha.drmm.config.batch;
 
-import com.hanwha.drmm.config.JobParametersUtil;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.hanwha.drmm.config;
+package com.hanwha.drmm.config.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,9 +1,7 @@
-package com.hanwha.drmm.tasklet;
+package com.hanwha.drmm.sample;
 
 import com.hanwha.drmm.config.AbstractStep;
 import java.util.Map;
-
-import com.hanwha.drmm.service.Test001Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;
@@ -16,9 +14,9 @@ import org.springframework.stereotype.Component;
 @StepScope
 @Component
 @RequiredArgsConstructor
-public class Test001Tasklet extends AbstractStep {
+public class MemberInsertTasklet_2 extends AbstractStep {
 
-    private final Test001Service test001Service;
+    private final MemberInsertService memberInsertService;
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
@@ -27,8 +25,7 @@ public class Test001Tasklet extends AbstractStep {
         log.info("#### {} start ####", name);
 
         Map jobParametersMap = getJobParametersMap();
-        test001Service.testMethod();
-        log.info("jobParametersMap = {}", jobParametersMap);
+        memberInsertService.insertMember2();
         log.info("#### {} end ####", name);
 
         return RepeatStatus.FINISHED;

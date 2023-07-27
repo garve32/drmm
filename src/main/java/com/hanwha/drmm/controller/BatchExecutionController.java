@@ -1,7 +1,7 @@
 package com.hanwha.drmm.controller;
 
-import com.hanwha.drmm.batch.SimpleJobRegistry;
-import com.hanwha.drmm.batch.SimpleJobRunner;
+import com.hanwha.drmm.config.batch.SimpleJobRegistry;
+import com.hanwha.drmm.config.batch.SimpleJobRunner;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -35,17 +35,17 @@ public class BatchExecutionController {
     }
 
     @PostMapping("/exe")
-    public void executeBatchJob(@RequestBody Map<String, String> param) throws NoSuchJobException, JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+    public String executeBatchJob(@RequestBody Map<String, String> param) throws NoSuchJobException, JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         String jobName = param.get("JOB_NAME");
         String jobParam = param.get("JOB_PARAM");
 
         String[] paramArray = org.apache.commons.lang3.StringUtils.split(jobParam, "\n");
         Properties prop = StringUtils.splitArrayElementsIntoProperties(paramArray, "=");
-        log.info("prop = {}", prop);
         jobRunner.setTaskExecutor(new SimpleAsyncTaskExecutor());
         Job job = jobRegistry.getJob(jobName);
         JobExecution jobExecution = jobRunner.run(job, prop);
-        log.info("JOB ID = {}", jobExecution.getJobId());
+        log.info("EXECUTE JOB : {}, JOB ID : {}", jobName, jobExecution.getJobId());
+        return "OK";
     }
 
 }

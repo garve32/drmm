@@ -5,13 +5,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class Test001Service {
 
-    public String testMethod() {
+    public void testMethod() {
         try {
-            Thread.sleep(10000);
+            Thread.sleep(3000); // 3초 딜레이
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return "OK";
     }
 
 }

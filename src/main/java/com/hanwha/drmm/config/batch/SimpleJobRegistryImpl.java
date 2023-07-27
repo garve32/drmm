@@ -1,4 +1,4 @@
-package com.hanwha.drmm.batch;
+package com.hanwha.drmm.config.batch;
 
 import java.util.ArrayList;
 import java.util.HashMap;

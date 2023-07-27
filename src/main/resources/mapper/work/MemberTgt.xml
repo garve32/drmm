@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper interface의 패키지 풀네임 -->
+<!--<mapper namespace="com.hanwha.drmm.sample.tgt.MemberTgtMapper">-->
+<mapper namespace="MemberTgt">
+
+  <select id="getCnt" resultType="Integer">
+    SELECT COUNt(*)
+    FROM MEMBER_TGT
+  </select>
+
+  <update id="updateMember" parameterType="com.hanwha.drmm.sample.Member">
+    UPDATE MEMBER_TGT
+       SET NAME = #{name}
+     WHERE MBR_ID = #{mbrId}
+  </update>
+
+  <insert id="insertMember" parameterType="com.hanwha.drmm.sample.Member">
+    INSERT INTO MEMBER_TGT
+    (MBR_ID, NAME) VALUES ( #{mbrId}, #{name} )
+  </insert>
+
+</mapper>

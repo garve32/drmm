@@ -1,4 +1,4 @@
-package com.hanwha.drmm.batch;
+package com.hanwha.drmm.config.batch;
 
 import java.util.Date;
 import lombok.extern.slf4j.Slf4j;

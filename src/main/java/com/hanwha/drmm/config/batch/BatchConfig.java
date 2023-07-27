@@ -1,6 +1,6 @@
-package com.hanwha.drmm.config;
+package com.hanwha.drmm.config.batch;
 
-import com.hanwha.drmm.batch.SimpleJobRegistry;
+import com.hanwha.drmm.config.batch.SimpleJobRegistry;
 import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
