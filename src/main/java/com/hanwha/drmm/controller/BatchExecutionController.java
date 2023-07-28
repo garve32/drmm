@@ -2,6 +2,7 @@ package com.hanwha.drmm.controller;
 
 import com.hanwha.drmm.config.batch.SimpleJobRegistry;
 import com.hanwha.drmm.config.batch.SimpleJobRunner;
+import com.hanwha.drmm.service.BatchMetaService;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -29,6 +30,8 @@ public class BatchExecutionController {
     private final SimpleJobRunner jobRunner;
     private final SimpleJobRegistry jobRegistry;
 
+    private final BatchMetaService batchMetaService;
+
     @GetMapping
     public List<Map<String, String>> getBatchJob() {
         return jobRegistry.getJobInfoDataset();
@@ -46,6 +49,11 @@ public class BatchExecutionController {
         JobExecution jobExecution = jobRunner.run(job, prop);
         log.info("EXECUTE JOB : {}, JOB ID : {}", jobName, jobExecution.getJobId());
         return "OK";
+    }
+
+    @GetMapping("/batchJobExecution")
+    public List<Map<String, String>> getBatchJobExecution() {
+        return batchMetaService.getBatchJobExecution();
     }
 
 }

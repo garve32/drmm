@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper interface의 패키지 풀네임 -->
+<mapper namespace="com.hanwha.drmm.sample.tgt.MemberTgtMapper">
+
+  <select id="getMember" resultType="hashmap">
+    select *
+    from batch_job_execution
+    where START_TIME between PARSEDATETIME('20230727000000', 'yyyyMMddHHmmss')
+            and PARSEDATETIME('20230727230000', 'yyyyMMddHHmmss')
+  </select>
+
+</mapper>
