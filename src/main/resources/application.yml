@@ -6,8 +6,8 @@ spring:
     job:
       name: ${job.name:NONE}
 logging:
-  pattern:
-    console: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
+#  pattern:
+#    console: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
   level:
     root: info
 --- # local
@@ -24,14 +24,14 @@ spring:
   datasource:
     hikari:
       batch:
-        jdbc-url: jdbc:h2:tcp://localhost/~/drmm
-        driver-class-name: org.h2.Driver
+        jdbc-url: jdbc:log4jdbc:h2:tcp://localhost/~/drmm
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
         pool-name: cp-drmm
         username: sa
         password:
       work:
-        jdbc-url: jdbc:h2:tcp://localhost/~/work
-        driver-class-name: org.h2.Driver
+        jdbc-url: jdbc:log4jdbc:h2:tcp://localhost/~/work
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
         pool-name: cp-work
         username: sa
         password:

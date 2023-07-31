@@ -2,13 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- Mapper interface의 패키지 풀네임 -->
-<mapper namespace="com.hanwha.drmm.sample.tgt.MemberTgtMapper">
+<mapper namespace="com.hanwha.drmm.api.mapper.BatchMetaMapper">
 
-  <select id="getMember" resultType="hashmap">
-    select *
-    from batch_job_execution
-    where START_TIME between PARSEDATETIME('20230727000000', 'yyyyMMddHHmmss')
-            and PARSEDATETIME('20230727230000', 'yyyyMMddHHmmss')
+  <select id="getBatchJobExecution" resultType="BatchJobExecutionResponse">
+    SELECT T2.JOB_NAME
+         , T1.JOB_EXECUTION_ID
+         , T1.VERSION
+         , T1.JOB_INSTANCE_ID
+         , T1.CREATE_TIME
+         , T1.START_TIME
+         , T1.END_TIME
+         , T1.STATUS
+         , T1.EXIT_CODE
+         , T1.EXIT_MESSAGE
+         , T1.LAST_UPDATED
+         , T3.PARAMS
+      FROM BATCH_JOB_EXECUTION T1
+           INNER JOIN BATCH_JOB_INSTANCE T2
+                   ON T2.JOB_INSTANCE_ID = T1.JOB_INSTANCE_ID
+           LEFT OUTER JOIN (SELECT JOB_EXECUTION_ID
+                                 /* H2 DB */
+                                 , group_concat(PARAMETER_NAME||'='||PARAMETER_VALUE separator ', ') AS PARAMS
+                              FROM BATCH_JOB_EXECUTION_PARAMS
+                             WHERE PARAMETER_NAME != 'batch.run.token'
+                             GROUP BY JOB_EXECUTION_ID) T3
+                        ON T3.JOB_EXECUTION_ID = T1.JOB_EXECUTION_ID
+     <where>
+       <if test="jobName != null">T2.JOB_NAME LIKE %#{jobName}%</if>
+       <if test="status != null">AND T1.STATUS = #{status}</if>
+       <if test="fromDt != null">AND T1.START_TIME &gt;= PARSEDATETIME(#{fromDt}, 'yyyyMMddHH')</if>
+       <if test="endDt != null">AND T1.START_TIME &lt;= PARSEDATETIME(#{endDt}, 'yyyyMMddHH')</if>
+     </where>
+     ORDER BY T1.JOB_EXECUTION_ID DESC
   </select>
 
 </mapper>
